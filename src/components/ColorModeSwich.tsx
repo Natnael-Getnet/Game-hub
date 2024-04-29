@@ -10,7 +10,7 @@ export const ColorModeSwich = () => {
         isChecked={colorMode === "dark"}
         onChange={toggleColorMode}
       />
-      <Text>Dark mode</Text>
+      <Text whiteSpace="nowrap">Dark mode</Text>
     </HStack>
   );
 };

@@ -26,9 +26,9 @@ export const SortSelector = ({ onSortOrder, sortOrder }: Props) => {
         Sort by : {currentSortOrder?.label || "Relevance"}
       </MenuButton>
       <MenuList>
-        {sortOrders.map((sortOrder) => {
+        {sortOrders.map((sortOrder, index) => {
           return (
-            <MenuItem onClick={() => onSortOrder(sortOrder.value)}>
+            <MenuItem key={index} onClick={() => onSortOrder(sortOrder.value)}>
               {sortOrder.label}
             </MenuItem>
           );
