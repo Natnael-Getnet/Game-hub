@@ -3,6 +3,7 @@ import getCroppedImage from "@/services/imageURL";
 import {
   Button,
   HStack,
+  Heading,
   Image,
   List,
   ListItem,
@@ -21,27 +22,37 @@ export const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
   if (isLoading) return <Spinner />;
 
   return (
-    <List>
-      {data.map((genre) => {
-        return (
-          <ListItem key={genre.id} paddingY="5px">
-            <HStack>
-              <Image
-                borderRadius="5px"
-                src={getCroppedImage(genre.image_background)}
-                boxSize="32px"
-              />
-              <Button
-                fontWeight={selectedGenre?.id === genre.id ? "bold" : "normal"}
-                variant="link"
-                onClick={() => onSelectedGenre(genre)}
-              >
-                {genre.name}
-              </Button>
-            </HStack>
-          </ListItem>
-        );
-      })}
-    </List>
+    <>
+      <Heading as="h1" fontSize="2xl" marginBottom={5}>
+        Genres
+      </Heading>
+      <List>
+        {data.map((genre) => {
+          return (
+            <ListItem key={genre.id} paddingY="5px">
+              <HStack>
+                <Image
+                  objectFit="cover"
+                  borderRadius="5px"
+                  src={getCroppedImage(genre.image_background)}
+                  boxSize="32px"
+                />
+                <Button
+                  whiteSpace="normal"
+                  textAlign="left"
+                  fontWeight={
+                    selectedGenre?.id === genre.id ? "bold" : "normal"
+                  }
+                  variant="link"
+                  onClick={() => onSelectedGenre(genre)}
+                >
+                  {genre.name}
+                </Button>
+              </HStack>
+            </ListItem>
+          );
+        })}
+      </List>
+    </>
   );
 };
