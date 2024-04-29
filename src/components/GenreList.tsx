@@ -1,11 +1,15 @@
 import useGenre from "@/hooks/useGenre";
 
+export interface Genre {
+  id: number;
+  name: string;
+}
+
 export const GenreList = () => {
-  const { genres } = useGenre();
+  const { data } = useGenre();
   return (
     <>
-      <h1>Genre</h1>
-      {genres.map((genre) => {
+      {data.map((genre) => {
         return <li key={genre.id}>{genre.name}</li>;
       })}
     </>
