@@ -1,5 +1,5 @@
 import { PLATFORM_CACHE_KEY } from "@/constants";
-import apiClient, { FetchedData } from "@/services/api-client";
+import ApiClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
 
 export interface Platform {
@@ -8,12 +8,12 @@ export interface Platform {
   slug: string;
 }
 
+const apiClient = new ApiClient<Platform>("/platforms/lists/parents");
+
 const usePlatform = () => {
   const fetchPlatform = async () => {
-    const response = await apiClient.get<FetchedData<Platform>>(
-      "/platforms/lists/parents"
-    );
-    return response.data;
+    const response = apiClient.getAll();
+    return response;
   };
 
   return useQuery({ queryKey: [PLATFORM_CACHE_KEY], queryFn: fetchPlatform });

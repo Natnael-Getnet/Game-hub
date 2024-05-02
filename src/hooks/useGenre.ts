@@ -1,5 +1,5 @@
 import { GENRE_CACHE_KEY } from "@/constants";
-import apiClient, { FetchedData } from "@/services/api-client";
+import ApiClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
 
 export interface Genre {
@@ -8,10 +8,12 @@ export interface Genre {
   image_background: string;
 }
 
+const apiClient = new ApiClient<Genre>("/genres");
+
 const useGenre = () => {
   const fetchGenre = async () => {
-    const response = await apiClient.get<FetchedData<Genre>>("/genres");
-    return response.data;
+    const response = apiClient.getAll();
+    return response;
   };
 
   return useQuery({ queryKey: [GENRE_CACHE_KEY], queryFn: fetchGenre });
