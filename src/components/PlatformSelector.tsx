@@ -10,10 +10,10 @@ export const PlatformSelector = ({
   onselectedPlatform,
   selectedPlatform,
 }: Props) => {
-  const { data, error, isLoading } = usePlatform();
+  const { data, error, isPending } = usePlatform();
 
-  if (error.length) return null;
-  if (isLoading) return null;
+  if (error) return null;
+  if (isPending) return null;
 
   return (
     <Menu>
@@ -21,7 +21,7 @@ export const PlatformSelector = ({
         {selectedPlatform ? selectedPlatform.name : "Platforms"}
       </MenuButton>
       <MenuList>
-        {data.map((platform) => {
+        {data?.results.map((platform) => {
           return (
             <MenuItem
               onClick={() => {
