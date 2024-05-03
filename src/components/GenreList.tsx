@@ -1,4 +1,4 @@
-import useGenre, { Genre } from "@/hooks/useGenre";
+import useGenres, { Genre } from "@/hooks/useGenres";
 import getCroppedImage from "@/services/imageURL";
 import {
   Button,
@@ -12,11 +12,11 @@ import {
 
 interface Props {
   onSelectedGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  selectedGenreId?: number;
 }
 
-export const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
-  const { data, error, isPending } = useGenre();
+export const GenreList = ({ onSelectedGenre, selectedGenreId }: Props) => {
+  const { data, error, isPending } = useGenres();
 
   if (error) return null;
   if (isPending) return <Spinner />;
@@ -40,9 +40,7 @@ export const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
                 <Button
                   whiteSpace="normal"
                   textAlign="left"
-                  fontWeight={
-                    selectedGenre?.id === genre.id ? "bold" : "normal"
-                  }
+                  fontWeight={selectedGenreId === genre.id ? "bold" : "normal"}
                   variant="link"
                   onClick={() => onSelectedGenre(genre)}
                 >
