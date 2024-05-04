@@ -1,9 +1,9 @@
-import { GameQuery } from "@/App";
 import { GAME_CACHE_KEY } from "@/constants";
 import ApiClient from "@/services/api-client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ms from "ms";
 import { Platform } from "./usePlatforms";
+import useGameQueryStore from "@/store";
 
 export interface Game {
   id: number;
@@ -16,7 +16,9 @@ export interface Game {
 
 const apiClient = new ApiClient<Game>("/games");
 
-const useGame = (gameQuery: GameQuery) => {
+const useGame = () => {
+  const gameQuery = useGameQueryStore((s) => s.gameQuery);
+
   const fetchData = async ({ pageParam }: { pageParam: number }) => {
     const res = await apiClient.getAll({
       params: {
