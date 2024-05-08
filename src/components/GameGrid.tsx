@@ -1,5 +1,5 @@
 import useGame from "@/hooks/useGames";
-import { Box, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
@@ -17,7 +17,6 @@ export const GameGrid = () => {
     data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
 
   return (
-    // <Box paddingX={5}>
     <InfiniteScroll
       dataLength={fetchedGamesCount}
       hasMore={hasNextPage}
@@ -50,6 +49,5 @@ export const GameGrid = () => {
         ))}
       </SimpleGrid>
     </InfiniteScroll>
-    // </Box>
   );
 };
