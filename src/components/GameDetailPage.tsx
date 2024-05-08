@@ -1,19 +1,20 @@
 import useGame from "@/hooks/useGame";
-import { Heading, Spinner, Text } from "@chakra-ui/react";
+import { Heading, Spinner } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import ExpandedText from "./ExpandedText";
 
 const GameDetailPage = () => {
   const { slug } = useParams();
-  const { data, error, isError, isPending } = useGame(slug!);
+  const { data: game, error, isError, isPending } = useGame(slug!);
 
   if (isPending) return <Spinner />;
 
-  if (isError || !data) throw error;
+  if (isError || !game) throw error;
 
   return (
     <>
-      <Heading>{data.name}</Heading>
-      <Text>{data.description_raw}</Text>
+      <Heading>{game.name}</Heading>
+      <ExpandedText>{game.description_raw}</ExpandedText>
     </>
   );
 };
