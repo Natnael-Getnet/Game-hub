@@ -17,39 +17,39 @@ export const GameGrid = () => {
     data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
 
   return (
-    <Box paddingX={5}>
-      <InfiniteScroll
-        dataLength={fetchedGamesCount}
-        hasMore={hasNextPage}
-        next={fetchNextPage}
-        loader={<Spinner />}
+    // <Box paddingX={5}>
+    <InfiniteScroll
+      dataLength={fetchedGamesCount}
+      hasMore={hasNextPage}
+      next={fetchNextPage}
+      loader={<Spinner />}
+    >
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+        border="10px"
+        spacing={6}
+        overflow="hidden"
       >
-        <SimpleGrid
-          columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-          border="10px"
-          spacing={6}
-          overflow="hidden"
-        >
-          {isPending &&
-            skeletons.map((skeleton) => (
-              <GameCardContainer key={skeleton}>
-                <GameCardSkeleton />
-              </GameCardContainer>
-            ))}
-
-          {data?.pages.map((page, index) => (
-            <React.Fragment key={index}>
-              {page.results.map((game) => (
-                <Link to={`/games/${game.id}`}>
-                  <GameCardContainer key={game.id}>
-                    <GameCard game={game} />
-                  </GameCardContainer>
-                </Link>
-              ))}
-            </React.Fragment>
+        {isPending &&
+          skeletons.map((skeleton) => (
+            <GameCardContainer key={skeleton}>
+              <GameCardSkeleton />
+            </GameCardContainer>
           ))}
-        </SimpleGrid>
-      </InfiniteScroll>
-    </Box>
+
+        {data?.pages.map((page, index) => (
+          <React.Fragment key={index}>
+            {page.results.map((game) => (
+              <Link to={`/games/${game.slug}`}>
+                <GameCardContainer key={game.id}>
+                  <GameCard game={game} />
+                </GameCardContainer>
+              </Link>
+            ))}
+          </React.Fragment>
+        ))}
+      </SimpleGrid>
+    </InfiniteScroll>
+    // </Box>
   );
 };

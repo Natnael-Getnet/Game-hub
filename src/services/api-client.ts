@@ -22,6 +22,10 @@ class ApiClient<T> {
     });
     return response.data;
   }
+
+  async get(id: number | string) {
+    return axiosClient.get<T>(this.endPoint + "/" + id).then((res) => res.data);
+  }
 }
 
 export default ApiClient;
