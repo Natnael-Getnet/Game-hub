@@ -7,11 +7,11 @@ import { Game } from "../entities/Game";
 
 const apiClient = new ApiClient<Game>("/games");
 
-const useGame = () => {
+const useGames = () => {
   const gameQuery = useGameQueryStore((s) => s.gameQuery);
 
   const fetchData = async ({ pageParam }: { pageParam: number }) => {
-    const res = await apiClient.getAll({
+    return await apiClient.getAll({
       params: {
         genres: gameQuery.genreId,
         parent_platforms: gameQuery.platformId,
@@ -20,8 +20,6 @@ const useGame = () => {
         page: pageParam,
       },
     });
-
-    return res;
   };
 
   return useInfiniteQuery({
@@ -35,4 +33,4 @@ const useGame = () => {
   });
 };
 
-export default useGame;
+export default useGames;

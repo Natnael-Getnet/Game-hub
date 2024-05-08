@@ -26,6 +26,13 @@ class ApiClient<T> {
   async get(id: number | string) {
     return axiosClient.get<T>(this.endPoint + "/" + id).then((res) => res.data);
   }
+
+  async getTrailor(id: number) {
+    const response = await axiosClient.get<FetchedData<T>>(
+      this.endPoint + "/" + id + "/" + "movies"
+    );
+    return response.data;
+  }
 }
 
 export default ApiClient;
