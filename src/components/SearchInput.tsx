@@ -2,16 +2,22 @@ import useGameQueryStore from "@/store";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useRef } from "react";
 import { BsSearch } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 export const SearchInput = () => {
   const ref = useRef<HTMLInputElement>(null);
   const setsearchText = useGameQueryStore((s) => s.setSearchText);
+  const navigate = useNavigate();
   return (
     <form
       style={{ width: "100%" }}
       onSubmit={(event) => {
         event.preventDefault();
-        if (ref.current) setsearchText(ref.current.value);
+        if (ref.current) {
+          setsearchText(ref.current.value);
+          ref.current.value = "";
+          navigate("/");
+        }
       }}
     >
       <InputGroup>
