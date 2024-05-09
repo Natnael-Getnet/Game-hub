@@ -24,13 +24,24 @@ class ApiClient<T> {
   }
 
   async get(id: number | string) {
-    return axiosClient.get<T>(this.endPoint + "/" + id).then((res) => res.data);
+    const response = await axiosClient.get<T>(this.endPoint + "/" + id);
+
+    return response.data;
   }
 
   async getTrailor(id: number) {
     const response = await axiosClient.get<FetchedData<T>>(
       this.endPoint + "/" + id + "/" + "movies"
     );
+
+    return response.data;
+  }
+
+  async getScreenShoot(id: number) {
+    const response = await axiosClient.get<FetchedData<T>>(
+      this.endPoint + "/" + id + "/" + "screenshots"
+    );
+
     return response.data;
   }
 }

@@ -6,13 +6,17 @@ interface Props {
 }
 
 const GameTrailor = ({ gameId }: Props) => {
-  const { data: trailor, error, isPending } = useGameTrailor(gameId);
+  const { data: trailor, error, isError, isPending } = useGameTrailor(gameId);
 
-  if (error || !trailor) throw error;
+  console.log("trailor.............................", trailor);
+
+  if (isError) throw error;
 
   if (isPending) return <Spinner />;
 
   const firstTrailor = trailor?.results[0];
+
+  console.log("firstTrailor.....................", firstTrailor);
 
   return firstTrailor ? (
     <video
